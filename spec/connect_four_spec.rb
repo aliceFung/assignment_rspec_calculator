@@ -23,6 +23,14 @@ Board
   horizontal_win?
   diagonal_win?
 
+  b = [["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0", "0"]]
+
 =end
 
 
@@ -34,34 +42,69 @@ describe Board do
 
   describe '#build_board' do
 
+    let (:board){[["0", "0", "0", "0", "0", "0", "0"],
+                  ["0", "0", "0", "0", "0", "0", "0"],
+                  ["0", "0", "0", "0", "0", "0", "0"],
+                  ["0", "0", "0", "0", "0", "0", "0"],
+                  ["0", "0", "0", "0", "0", "0", "0"],
+                  ["0", "0", "0", "0", "0", "0", "0"]]}
+
     it 'returns an array 6 subarrays, each with 7 zeros' do
-      expect(b.build_board).to eq(Array.new(6){Array.new(7){"0"}})
+      expect(b.build_board).to eq(board)
     end
 
   end
 
-  describe '#vertical_win?' do
-
-    before do
-     b.build_board
-     @game_board_array = b.field
-    end
+  describe '#game_over?' do
 
     it 'returns true when 4 pieces in a row vertically' do
-      @game_board_array[5][2] = :x
-      @game_board_array[4][2] = :x
-      @game_board_array[3][2] = :x
-      @game_board_array[2][2] = :x
+      b.field = [["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", "0", "0", "0", "0", "0"],
+              ["0", "0", "0", "0", "0", "0", "0"]]
 
-      expect(b.vertical_win?(:x)).to be true
+      expect(b.game_over?(:x)).to be true
 
     end
 
-    it 'returns false when 3 pieces in a row vertically'
+    it 'returns false when 3 pieces in a row vertically' do
+      b.field = [["0", "0", "0", "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :x, "0", "0", "0", "0"],
+              ["0", "0", :*, "0", "0", "0", "0"],
+              ["0", "0", "0", "0", :x, "0", "0"]]
 
-    
+      expect(b.game_over?(:x)).to be false
+    end
 
-    it 'reject false when 4 pieces in a row are not same'
+
+    it 'returns true when 4 pieces in a row horizontally' do
+      b.field = [["0", "0", :x, :x, :x, :x, "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"]]
+
+      expect(b.game_over?(:x)).to be true
+    end
+
+
+
+    it 'returns false when 4 pieces in a row horizonatally are not the same' do
+      b.field = [["0", :*, :x, :x, :*, :x, "0"],
+          ["0", "0", "0", "0", "0", "0", "0"],
+          ["0", "0", "0", "0", "0", "0", "0"],
+          ["0", "0", "0", "0", "0", "0", "0"],
+          ["0", "0", "0", "0", "0", "0", "0"],
+          ["0", "0", "0", "0", "0", "0", "0"]]
+
+      expect(b.game_over?(:x)).to be false
+    end
+
 
 
   end

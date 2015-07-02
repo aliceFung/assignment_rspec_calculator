@@ -183,6 +183,8 @@ class Board
     winning_combo?(symbol) || tie?(symbol)
   end
 
+  private
+
   def winning_combo?(symbol)
     vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_win?(symbol)
   end
