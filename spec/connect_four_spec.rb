@@ -194,18 +194,23 @@ describe Player do
 
   describe '#move' do
 
-    it 'gets input from player' do
+    # Can't check because they are private
+    # it 'gets input from player'
+    # it 'checks if input is valid: column is within the board'
+    # it 'check if input is valid: column is full'
+    # it 'finds the bottom-most row of correct column'
 
-      #expect()
+    it 'adds piece to board at correct position' do
+      b.field = [["0", "0", "0", "0", "0", "0", "0"],
+                    ["0", "0", "0", "0", "0", "0", "0"],
+                    ["0", "0", "0", "0", "0", "0", "0"],
+                    ["0", "0", "0", "0", "0", "0", "0"],
+                    ["0", "0", "0", "0", "0", "0", "0"],
+                    ["0", :x, "0", "0", "0", "0", "0"]]
+
+      expect(p.make_move(5,2)).to eq(:x)
+
     end
-
-    it 'checks if input is valid: column is within the board'
-
-    it 'check if input is valid: column is full'
-
-    it 'finds the bottom-most row of correct column'
-
-    it 'adds piece to board at correct position'
 
 
   end

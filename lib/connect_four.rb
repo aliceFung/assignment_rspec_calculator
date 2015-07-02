@@ -54,15 +54,17 @@ class Player
 
   end
 
-  def move
-    col=get_input
+  def move 
+    row, col = define_column_row
+    make_move(row, col)
+    win
+  end
 
-    until check?(col)
-      col=get_input
-    end
-    row=find_row(col)
-
+  def make_move(row, col)
     @board_array[row][col-1] = @piece
+  end
+
+  def win 
     if @board.game_over?(@piece)
       @board.render
       puts "You Won!"
@@ -72,9 +74,21 @@ class Player
 
   private
 
+  def define_column_row
+    col=get_input
+
+    until check?(col)
+      col=get_input
+    end
+    row=find_row(col)
+
+    return row, col
+
+  end
+
   def get_input
     puts "Which column do you want to put your piece in? (from column from 1 to 7)"
-    input = gets.chomp.to_i
+    gets.chomp.to_i
   end
 
   def check?(col)
