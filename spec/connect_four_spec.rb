@@ -153,22 +153,60 @@ end
 
 describe Player do
 
-  # let (:p){Player.new}
+  let (:b){Board.new}
+  let (:p){Player.new(b, :x)}
 
   describe '#initialize' do
 
-    it 'raises an ArgumentError with 0 arguments' do 
-      expect{Player.new([],x)}.to raise_error
+    it 'raises an ArgumentError with 0 arguments' do
+      expect{Player.new}.to raise_error
     end
 
-    it 'does not raise an error passing board as Board instance'
-    it 'does not raise an error passing piece as symbol'
+    it 'does not raise an error passing Board instance and symbol' do
+      expect{p}.not_to raise_error
+    end
 
-    it 'saves your passed-in value for @board'
+    it 'saves your passed-in value for @board' do
 
-    it 'saves your passed-in value for @piece'
+      expect(p.instance_variable_get(:@board)).to eq(b)
 
-    it 'gets an array and saves it in @board_array'
+    end
+
+    it 'saves your passed-in value for @piece' do
+
+      expect(p.instance_variable_get(:@piece)).to eq(:x)
+    end
+
+    it 'gets an array and saves it in @board_array' do
+
+      b.field = [["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"],
+                ["0", "0", "0", "0", "0", "0", "0"]]
+
+      expect(p.instance_variable_get(:@board_array)).to eq(b.field)
+
+    end
+
+  end
+
+  describe '#move' do
+
+    it 'gets input from player' do
+
+      #expect()
+    end
+
+    it 'checks if input is valid: column is within the board'
+
+    it 'check if input is valid: column is full'
+
+    it 'finds the bottom-most row of correct column'
+
+    it 'adds piece to board at correct position'
+
 
   end
 
