@@ -1,5 +1,5 @@
 # Your code here!
-require "byebug"
+# require "byebug"
 class Game
 
   def initialize
@@ -248,8 +248,3 @@ class Board
 
 end
 
-
-
-
-g=Game.new
-g.start_game
