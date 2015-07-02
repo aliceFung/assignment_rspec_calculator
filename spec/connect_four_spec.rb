@@ -255,12 +255,33 @@ describe Game do
 
     it 'should return true if input is 1' do
 
-      allow(:g).to receive(:gets).and_return("1")
+      allow(g).to receive(:gets).and_return("1")
+      # g.stub(:gets) {"1"}
 
-      expect(g.play_against_AI).to be true
+      expect(g.play_against_AI?).to be true
 
     end
 
+    it 'should return false if input is 2' do
+
+      g.stub(:gets) {"2"}
+
+      expect(g.play_against_AI?).to be false
+
+    end
+
+    it 'should ask for input twice (input is 3) and then return false (input is 2)' do
+
+      allow(g).to receive(:gets).and_return("3","3","2")
+      expect(g.play_against_AI?).to be false
+
+    end
+
+  end
+
+  describe '#choose_opponent' do
+
+    it 'creates an AI object if play_against_AI is true'
 
   end
 

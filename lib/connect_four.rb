@@ -35,7 +35,7 @@ class Game
 
   def play_against_AI? #validate
     input = false
-    unless (input.class.is_a? Integer) && [1,2].include?(input)
+    until ((input.is_a? Integer) && [1,2].include?(input))
       puts "Play against a (1)computer or (2) another player?"
       input = gets.chomp.to_i
     end
