@@ -127,7 +127,7 @@ describe Calculator do
     end
 
     it 'returns two decimal points for non-round root' do
-      expect(calc.sqrt(7).to_s.split('.').last.size).to eq(2)
+      expect(calc.sqrt(7)).to eq(2.645751.round(2))
     end
 
   end
@@ -135,12 +135,14 @@ describe Calculator do
   describe '#memory=' do
 
     it 'stores a variable in the memory' do
-      expect(calc.memory=(5)).to eq(5)
+      calc.memory=(5)
+      expect(calc.instance_variable_get(:@memory)).to eq(5)
     end
 
     it 'overwrites the memory' do
       calc.memory=(5)
-      expect(calc.memory=(6)).to eq(6)
+      calc.memory=(6)
+      expect(calc.instance_variable_get(:@memory)).to eq(6)
     end
 
   end
@@ -155,12 +157,12 @@ describe Calculator do
     it 'clears the memory' do
       calc.memory=(7)
       calc.memory
-      expect(calc.instance_variable_get(:@memory)).to be_nil
+      expect(calc.memory).to be_nil
     end
 
   end
 
-  context "@stringify" do
+  context "when stringify is true" do
 
     let (:calcstring) {Calculator.new (true)}
 
@@ -297,7 +299,7 @@ describe Calculator do
     end
 
     it 'returns two decimal points for non-round root' do
-      expect(calcstring.sqrt(7).to_s.split('.').last.size).to eq(2)
+        expect(calcstring.sqrt(7)).to eq(2.645751.round(2).to_s)
     end
 
   end
