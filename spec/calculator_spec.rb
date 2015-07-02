@@ -160,7 +160,7 @@ describe Calculator do
 
   end
 
-  context "@stringify" do 
+  context "@stringify" do
 
     let (:calcstring) {Calculator.new (true)}
 
@@ -205,11 +205,11 @@ describe Calculator do
     end
 
     it 'subtracts two floats' do
-      expect(calcstring.subtract(4.1, 3.2)).to be_within(0.1).of(0.9)
+      expect(calcstring.subtract(4.1, 3.2)).to eq(calc.subtract(4.1, 3.2).to_s)
     end
 
     it 'subtracts a float and an integer' do
-      expect(calcstring.subtract(1.1,1)).to be_within(0.1).of(0.1)
+      expect(calcstring.subtract(1.1,1)).to eq(calcstring.subtract(1.1,1).to_s)
     end
 
   end
@@ -249,7 +249,7 @@ describe Calculator do
     end
 
     it 'divides two positive numbers' do
-      expect(calcstring.divide(2,3)).to be_within(0.1).of(0.66)
+      expect(calcstring.divide(2,3)).to eq(calc.divide(2,3).to_s)
     end
 
     it 'divides two negative numbers' do
@@ -257,11 +257,11 @@ describe Calculator do
     end
 
     it 'divides two floats' do
-      expect(calcstring.divide(4.1, 3.2)).to be_within(0.1).of(1.28125)
+      expect(calcstring.divide(4.1, 3.2)).to eq(calc.divide(4.1, 3.2).to_s)
     end
 
     it 'divides a float and an integer' do
-      expect(calcstring.divide(1.1,1)).to be_within(0.1).of(1.1)
+      expect(calcstring.divide(1.1,1)).to eq(calc.divide(1.1,1).to_s)
     end
 
   end
@@ -277,7 +277,7 @@ describe Calculator do
     end
 
     it 'raises decimal number to positive power ' do
-      expect(calcstring.pow(4.1, 2)).to be_within(0.1).of(16.81)
+      expect(calcstring.pow(4.1, 2)).to eq(calc.pow(4.1, 2).to_s)
     end
 
   end
