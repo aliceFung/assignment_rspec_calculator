@@ -54,11 +54,6 @@ class Player
 
   end
 
-  def get_input
-    puts "Which column do you want to put your piece in? (from column from 1 to 7)"
-    input = gets.chomp.to_i
-  end
-
   def move
     col=get_input
 
@@ -73,6 +68,13 @@ class Player
       puts "You Won!"
       exit
     end
+  end
+
+  private
+
+  def get_input
+    puts "Which column do you want to put your piece in? (from column from 1 to 7)"
+    input = gets.chomp.to_i
   end
 
   def check?(col)
@@ -180,16 +182,16 @@ class Board
   end
 
   def game_over?(symbol)
-    winning_combo?(symbol) || tie?(symbol)
+    winning_combo?(symbol) || tie?
   end
 
   private
 
   def winning_combo?(symbol)
-    vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_win?(symbol)
+    vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_left_win?(symbol) || diagonal_right_win?(symbol)
   end
 
-  def tie?(symbol)
+  def tie?
     for row in (0..5) #rows
       for column in (0..6) #columns
         return false if @field[row][column] == '0'
@@ -213,7 +215,6 @@ class Board
     false
   end
 
-
   def horizontal_win?(symbol)
     @field.each do |row|
       0.upto(3) do |index|
@@ -225,7 +226,7 @@ class Board
     false
   end
 
-  def diagonal_win?(symbol) #not all checks compatible
+  def diagonal_left_win?(symbol)
     #top right= row 0, col 0; bottom left= row 5, col6
     0.upto(3) do |col|
       5.downto(3) do |row|
@@ -240,6 +241,29 @@ class Board
       5.downto(3) do |row|
         break if !(0..5).include?(row-3) || !(0..6).include?(col-3)
         if [@field[row][col],@field[row-1][col-1],@field[row-2][col-2],@field[row-3][col-3]].all?  {|place| place == symbol}
+          return true
+        end
+      end
+    end
+
+    false
+  end
+
+  def diagonal_right_win?(symbol)
+    #top right= row 0, col 0; bottom left= row 5, col6
+    0.upto(3) do |col|
+      5.downto(3) do |row|
+        break if !(0..5).include?(row-3) || !(0..6).include?(col+3)
+        if [@field[row][col],@field[row-1][col+1],@field[row-2][col+2],@field[row-3][col+3]].all?  {|place| place == symbol}
+          return true
+        end
+      end
+    end
+
+    6.downto(3) do |col|
+      5.downto(3) do |row|
+        break if !(0..5).include?(row+3) || !(0..6).include?(col+3)
+        if [@field[row][col],@field[row+1][col+1],@field[row+2][col+2],@field[row+3][col+3]].all?  {|place| place == symbol}
           return true
         end
       end
