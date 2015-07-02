@@ -1,5 +1,6 @@
 # assignment_rspec_calculator
 
-01134
+Michelle Toussaint
+Alice Fung
 
 [A Ruby and RSpec testing assignment from the Viking Code School](http://www.vikingcodeschool.com)
