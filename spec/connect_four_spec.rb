@@ -192,7 +192,7 @@ describe Player do
 
   end
 
-  describe '#move' do
+  describe '#make_move' do
 
     # Can't check because they are private
     # it 'gets input from player'
@@ -212,8 +212,58 @@ describe Player do
 
     end
 
+  end
+
+  describe '#move' do
+
+    it 'should not add a piece to a full column'
+
+    it 'should add a piece to the lowest row in the same column'
 
   end
+
+end
+
+
+describe Game do
+
+  let (:g){Game.new}
+
+  describe "#initialized" do
+
+    it 'raises an ArgumentError with 1 arguments' do
+      expect{Game.new(1)}.to raise_error
+    end
+
+    it 'does not raise error when passing no arguments' do
+      expect{g}.not_to raise_error
+    end
+
+    it 'creates a new Board object' do
+      expect(g.instance_variable_get(:@board)).to be_a(Board)
+    end
+
+  end
+
+  describe "#start_game" do
+
+    it 'creates a Player object'
+
+  end
+
+  describe '#play_against_AI' do
+
+    it 'should return true if input is 1' do
+
+      allow(:g).to receive(:gets).and_return("1")
+
+      expect(g.play_against_AI).to be true
+
+    end
+
+
+  end
+
 
 end
 

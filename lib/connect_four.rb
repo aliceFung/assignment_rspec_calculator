@@ -54,7 +54,7 @@ class Player
 
   end
 
-  def move 
+  def move
     row, col = define_column_row
     make_move(row, col)
     win
@@ -64,15 +64,15 @@ class Player
     @board_array[row][col-1] = @piece
   end
 
-  def win 
+  private
+
+  def win
     if @board.game_over?(@piece)
       @board.render
       puts "You Won!"
       exit
     end
   end
-
-  private
 
   def define_column_row
     col=get_input
