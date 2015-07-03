@@ -13,7 +13,7 @@ class Game
   def start_game
     @board.build_board
     puts "Game started"
-    player1 = Player.new(@board, :*)
+    player1 = Player.new(@board, :o)
     player2 = choose_opponent
 
     loop do
@@ -96,14 +96,14 @@ class Player
     5.downto(0) do |row|
       arr << @board_array[row][col-1]
     end
-    empty_space = arr.include?("0")
+    empty_space = arr.include?("-")
     puts "This column is full!" unless empty_space
    (col < 8 && col > 0 &&  empty_space)
   end
 
   def find_row(col)
     row = 5
-    while @board_array[row][col-1] != "0"
+    while @board_array[row][col-1] != "-"
         if row < 0
           puts "Counted down 0"
           break
@@ -140,7 +140,7 @@ class AI < Player #untested
     col = last_move[1]
 
     0.upto(2) do |row|
-      if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "0"}
+      if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "-"}
         return true
       end
     end
@@ -153,7 +153,7 @@ class AI < Player #untested
     row = last_move[0]
     0.upto(3) do |index|
       if row[index..index+3].all? do |place|
-        place == symbol || place == "0"
+        place == symbol || place == "-"
         return true
         end #end for .all? method
       end
@@ -178,20 +178,24 @@ class Board
     for row in (0..5) #rows
       for column in (0..6) #columns
         print @field[row][column]
+        print " "
       end
       puts
     end
+    puts "1|2|3|4|5|6|7"
   end
 
   def build_board  #top right= row 0, col 0; bottom left= row 5, col6
     for row in (0..5) #rows
       @field<<[]
       for column in (0..6) #columns
-        @field[row][column]="0"
+        @field[row][column]="-"
         print @field[row][column]
+        print " "
       end
       puts
     end
+    puts "1|2|3|4|5|6|7"
     @field
   end
 
@@ -208,7 +212,7 @@ class Board
   def tie?
     for row in (0..5) #rows
       for column in (0..6) #columns
-        return false if @field[row][column] == '0'
+        return false if @field[row][column] == "-"
       end
     end
     puts "No more moves! It's a tie."
@@ -241,15 +245,6 @@ class Board
   end
 
   def diagonal_left_win?(symbol)
-    #top right= row 0, col 0; bottom left= row 5, col6
-    0.upto(3) do |col|
-      5.downto(3) do |row|
-        break if !(0..5).include?(row+3) || !(0..6).include?(col-3)
-        if [@field[row][col],@field[row+1][col-1],@field[row+2][col-2],@field[row+3][col-3]].all?  {|place| place == symbol}
-          return true
-        end
-      end
-    end
 
     6.downto(3) do |col|
       5.downto(3) do |row|
@@ -269,15 +264,6 @@ class Board
       5.downto(3) do |row|
         break if !(0..5).include?(row-3) || !(0..6).include?(col+3)
         if [@field[row][col],@field[row-1][col+1],@field[row-2][col+2],@field[row-3][col+3]].all?  {|place| place == symbol}
-          return true
-        end
-      end
-    end
-
-    6.downto(3) do |col|
-      5.downto(3) do |row|
-        break if !(0..5).include?(row+3) || !(0..6).include?(col+3)
-        if [@field[row][col],@field[row+1][col+1],@field[row+2][col+2],@field[row+3][col+3]].all?  {|place| place == symbol}
           return true
         end
       end
