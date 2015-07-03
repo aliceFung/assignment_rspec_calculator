@@ -118,7 +118,7 @@ class AI < Player #untested
     #block player
   def move #incomplete
     symbol = :x
-    #puts "AI move"
+    puts "The AI is still learning... it'll pass."
     @last_move = [5,0]
 
     # if vertical_check(symbol, @last_move) || horizontal_check(symbol, @last_move)
