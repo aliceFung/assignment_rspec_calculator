@@ -1,15 +1,9 @@
-# Your code here!
-# require "byebug"
 class Game
 
   def initialize
-
     @board = Board.new
-
   end
-  #initialize players and board
 
-  #start game loop
   def start_game
     @board.build_board
     puts "Game started"
@@ -18,7 +12,7 @@ class Game
 
     loop do
       player1.move
-      @board.render #include move check and display
+      @board.render
       puts "Other player's move:"
       player2.move
       @board.render
@@ -33,7 +27,7 @@ class Game
     end
   end
 
-  def play_against_AI? #validate
+  def play_against_AI?
     input = false
     until ((input.is_a? Integer) && [1,2].include?(input))
       puts "Play against a (1)computer or (2) another player?"
@@ -83,7 +77,6 @@ class Player
     row=find_row(col)
 
     return row, col
-
   end
 
   def get_input
@@ -136,7 +129,7 @@ class AI < Player #untested
   end
 
 
-  def vertical_check(symbol, last_move)
+  def vertical_check(symbol)
     col = last_move[1]
 
     0.upto(2) do |row|
@@ -149,7 +142,7 @@ class AI < Player #untested
   end
 
 
-  def horizontal_check(symbol, last_move)
+  def horizontal_check(symbol)
     row = last_move[0]
     0.upto(3) do |index|
       if row[index..index+3].all? do |place|
@@ -167,9 +160,7 @@ end
 
 class Board
   attr_accessor :field
-  #pass instance into game
-  #check move in board
-  #render
+
   def initialize
     @field =[]
   end
@@ -186,9 +177,9 @@ class Board
   end
 
   def build_board  #top right= row 0, col 0; bottom left= row 5, col6
-    for row in (0..5) #rows
+    for row in (0..5)
       @field<<[]
-      for column in (0..6) #columns
+      for column in (0..6)
         @field[row][column]="-"
         print @field[row][column]
         print " "
