@@ -17,12 +17,6 @@ Board DONE!!
   render
   build_board
   game_over?
-  winning_combo?
-  tie?
-  vertical_win?
-  horizontal_win?
-  diagonal_win?
-
 =end
 
 
